@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', {title: "Register" }) %>
+
+<body class="body-register">
+  <!-- Loader -->
+  <h1 class='loader' style='margin-top:400px'>Wait a moment please...</h1>
+  <div class="loader"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="/javascripts/loader.js"></script>
+  <main>
+    <div class="box-register">
+      <!--* Logo -->
+      <a href="/"><img class="logo-register" src="../images/logo-b.png" alt="LogoSportShoes"></a>
+      <h1 class="text-register">Register</h1>
+      <!--* Formulario -->
+      <form class="form-register" action="/user/register" method="POST" enctype="multipart/form-data" id="formulario">
+
+        <!--* FullName -->
+        <label for="fullName">Enter your name:</label>
+        <input id="fullName" type="text" name="fullName" class='form-control spacing <%= locals.errors && errors.fullName ? 'is-invalid' : null  %>' value='<%= locals.oldData ? oldData.fullName : null  %>'>
+        <!--? Validacion Front -->
+        <p id="errFullName" class="msg-errors hidden"></p>
+        <!--? Validacion Back -->
+        <div class=' <%= locals.errors && errors.fullName ? 'invalid-feedback' : null  %> '>
+          <%= locals.errors && errors.fullName ? errors.fullName.msg : null %>
+        </div>
+
+        <!--* User -->
+        <label for="userName">Enter your Username:</label>
+        <input id="userName" type="text" placeholder="<%= locals.errors && errors.userName ? errors.userName.msg : null %>" name="userName" value='<%= locals.oldData ? oldData.userName : null  %>' class='form-control spacing <%= locals.errors && errors.userName ? 'is-invalid' : null  %> '>
+        <!--? Validacion Front -->
+        <p id="errUserName" class="msg-errors hidden"></p>
+
+        <!--* Country -->
+        <label for='country'>Select your Country</label>
+        <select id="country" name='country' class='form-select spacing <%= locals.errors && errors.country ? 'is-invalid' : null  %> '>
+          <option value=''>Choose a country</option>
+          <% let countries = ['Argentina', 'EEUU', 'Chile', 'Perú', 'Bolivia', 'Colombia', 'Paraguay'] %>
+          <% for( const oneCountry of countries ) { %>
+          <option value='<%= oneCountry %>' <%= locals.oldData && (oneCountry == oldData.country) ? 'selected' : null %>> <%= oneCountry  %> </option>
+          <% } %>
+        </select>
+        <!--? Validacion Front -->
+        <p id="errCountry" class="msg-errors hidden"></p>
+        <!--? Validacion Back -->
+        <% if (locals.errors && errors.country) { %>
+        <h7 class='text-danger'>
+          <%= errors.country.msg  %>
+        </h7>
+        <% } %>
+
+        <!--* Address -->
+        <label for="address">Enter your address:</label>
+        <input id="address" type="text" placeholder="<%= locals.errors && errors.address ? errors.address.msg : null %>" name="address" value='<%= locals.oldData ? oldData.address : null %>' class='form-control spacing <%= locals.errors && errors.address ? 'is-invalid' : null  %> '>
+        <!--? Validacion Front -->
+        <p id="errAddress" class="msg-errors hidden"></p>
+
+        <!--* Email -->
+        <label for="email"> Enter your email </label>
+        <input type="text" id="email" placeholder="<%= locals.errors && errors.email ? errors.email.msg : null %>" name="email" value='<%= locals.oldData ? oldData.email : null  %>' class='form-control spacing <%= locals.errors && errors.email ? 'is-invalid' : null  %> '>
+        <!--? Validacion Front -->
+        <p id="errEmail" class="msg-errors hidden"></p>
+        <!--? Validacion Back -->
+        <% if (locals.errors && errors.email) { %>
+        <div class="text-danger">
+          <%= errors.email.msg %>
+        </div>
+        <% } %>
+
+        <!--* Avatar -->
+        <label for="avatar"> Choose an Avatar </label>
+        <!-- accept="image/png, image/jpeg, image/jpg, image/gif"  -->
+        <input id="avatar" class='form-control spacing <%= locals.errors && errors.avatar ? 'is-invalid' : null %>' type="file" name="avatar">
+        <!--? Validacion Front -->
+        <p id="errAvatar" class="msg-errors hidden"></p>
+        <!--? Validacion Back -->
+        <% if (locals.errors && errors.avatar) { %>
+        <h7 class='text-danger'>
+          <%= errors.avatar.msg  %>
+        </h7>
+        <% } %>
+
+        <!--* Password -->
+        <label for="password">Enter a password:</label>
+        <input type="password" id="password" name="password" value='<%= locals.oldData ? oldData.password : null  %>' class='form-control spacing <%= locals.errors && errors.password ? 'is-invalid' : null %> '>
+        <!--? Validacion Front -->
+        <p id="errPassword" class="msg-errors hidden"></p>
+        <!--? Validacion Back -->
+        <div class=' <%= locals.errors && errors.password ? 'invalid-feedback' : null  %> '>
+          <%= locals.errors && errors.password ? errors.password.msg : null %>
+        </div>
+
+        <!--* Re-Password -->
+        <label for="password">Re-enter password:</label>
+        <input  id= "rePassword" type="password" placeholder="<%= locals.errors && errors.password ? errors.password.msg : null %>" name="confirmPassword" value='<%= locals.oldData ? oldData.password : null  %>' class='form-control spacing <%= locals.errors && errors.password ? 'is-invalid' : null  %> '>
+        <!--? Validacion Front -->
+        <p id="errRePassword" class="msg-errors hidden"></p>
+        <br>
+        <input type="submit" id="btnSubmit" class="submit-login" value="Register">
+      </form>
+    </div>
+  </main>
+  <script src="/javascripts/validationRegister.js"></script>
+</body>
+
+</html>
